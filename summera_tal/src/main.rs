@@ -2,6 +2,7 @@
  * Solution to the Kattis problem "Summera tal"
  * See: https://kth.kattis.com/problems/kth.javap.sumsort
  * Author: Mikael Sahleström <sahlest@kth.se>
+ * Based on kattis_template
  */
 
 use std::io;
@@ -11,13 +12,14 @@ use std::io::prelude::*;
 fn main() {
     // get standard input stream
     let input = io::stdin();
-
-    // get iterable of all input lines as String
+   
+    // ----------------------------------------------------------------
+    // Imported from T.A Viola 2020-10-01
+    // get iterable of all input lines
     let mut lines = input
         .lock()
         .lines()
         .map(|_line| _line.ok().unwrap());
-
     // get first line as usize
     let n = lines 
         // get first line of input
@@ -35,46 +37,19 @@ fn main() {
         .map(|_num| _num.parse::<u64>().unwrap())
         // assuming you acctually want a vector
         .collect::<Vec<u64>>();
-
-    /* Dummy data ... */
-    // let input1 = 5;
-    // let mut input2 =vec![5, 3, 2, 1, 1]; // answer 10
-    // let input1 = 9;
-    // let mut input2 = vec![1, 14, 67, 83, 42, 6, 17, 33, 91]; // answer 316
-
-    let input1 = n;
-    let mut input2 = nums; // answer 316
-    
+    // ----------------------------------------------------------------
 
     // Ineffective method, since we iterate over each element multiple times
-    input2.sort();
-    input2.reverse();
+    nums.sort();
+    nums.reverse();
 
-    //Check how many numbers are required 
-    let m = if input1%2 == 1 {(input1+1)/2} else {input1/2};
-    let mut index = 0;
-
+    //Check how many numbers are required based on even or uneven n
+    let m = if n%2 == 1 {(n+1)/2} else {n/2};
+    
     // Sum the highest input vector
     let mut sum = 0;
-    while index < m {
-        sum += input2[index];
-        index += 1;
+    for i in 0..m {
+        sum += nums[i];
     }
-
-
-    // Check if n is even or uneven to decide how many number to sum
-    // eprintln!("{}", m);
-
-    // Create vector with the length of m. 
-    // let highest_input = vec![0; (input1+1)/2]; // always rounds down by default
-
-    // Start work through the input vector. Is the current value higher than the lowest value in highestInput? then replace that value.alloc
-
-
-
-    // let f: bool = false;
-    // let maxValue = input2.iter().max();
-
-    // eprintln!("Kattis skips this comment!");
     println!("{}", sum);
 }
